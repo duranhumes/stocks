@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { FETCH_SYMBOL, FETCH_ERROR } from '../actions/types';
+import { FETCH_SYMBOL } from '../actions/types';
 
 const structureSymbolData = data => {
 	let prices = [];
@@ -32,6 +32,7 @@ export default function symbolReducer(state = [], { type, payload }) {
 	switch (type) {
 		case FETCH_SYMBOL:
 			let data = structureSymbolData(payload.data);
+			// Prevent symbols form being duplicated
 			state.map(st => {
 				if (data) {
 					if (data.symbol[0]) {
@@ -44,8 +45,6 @@ export default function symbolReducer(state = [], { type, payload }) {
 			if (typeof data !== 'undefined') {
 				return [data, ...state];
 			}
-			return [...state];
-		case FETCH_ERROR:
 			return [...state];
 		default:
 			return state;

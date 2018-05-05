@@ -1,3 +1,9 @@
+body {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
 svg {
 	height: 80px;
 	width: 65%;
@@ -23,11 +29,11 @@ svg {
 
 .symbolList ul {
 	list-style-type: none;
-	padding-left: 20px;
+	padding-left: 0px;
 }
 
 .symbolListForm {
-	margin-bottom: 10px;
+	border-bottom: 2px solid #091017;
 }
 
 .symbolListSearch {
@@ -40,27 +46,62 @@ svg {
 	padding: 20px 10px;
 	font-size: 1.2em;
 	border: none;
+	background: #15181d;
+	color: #f7fbff;
+	outline: none;
+	transition: 100ms all ease;
 }
 
-.symbolWrapper {
+.symbolListSearch input:focus {
+	background: #2a303a;
+	color: #f7fbff;
+	outline: none;
+	box-shadow: none;
+	border-color: none;
+	border-bottom: 2px solid #98c2f2;
+}
+
+.symbolWrapper,
+.errorWrapper {
 	color: #cccdce;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 5px 15px;
+	padding: 15px;
 	border-bottom: 2px solid #091017;
 }
 
+.input-group-text {
+	background: none;
+	border: none;
+}
+
 .price {
-	font-size: 1.2em;
-	font-weight: bold;
+	font-size: 1.4em;
 }
 
 .symbol {
 	font-size: 1.6em;
-	font-weight: bold;
 }
 
 .chart {
 	flex: 2;
+}
+
+.input-group-text:hover {
+	cursor: pointer;
+}
+
+.fa-search {
+	color: #20c291 !important;
+	font-size: 1.2em;
+}
+
+::-webkit-scrollbar {
+	width: 0px;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #ff0000;
 }

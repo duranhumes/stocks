@@ -19,7 +19,7 @@ export const fetchSymbol = input => {
 				} else {
 					dispatch({
 						type: FETCH_ERROR,
-						payload: [{ error: 'error' }],
+						payload: { error: 'There was an error fetching that symbol.' },
 					});
 				}
 			})
