@@ -1,0 +1,66 @@
+svg {
+	height: 80px;
+	width: 65%;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+}
+
+.wrapper {
+	display: flex;
+	height: 100vh;
+}
+
+.currentSymbol {
+	flex: 3;
+}
+
+.symbolList {
+	flex: 1.5;
+	background: #15181d;
+	overflow-y: scroll;
+}
+
+.symbolList ul {
+	list-style-type: none;
+	padding-left: 20px;
+}
+
+.symbolListForm {
+	margin-bottom: 10px;
+}
+
+.symbolListSearch {
+	width: 100%;
+}
+
+.symbolListSearch input {
+	width: 100%;
+	height: 100%;
+	padding: 20px 10px;
+	font-size: 1.2em;
+	border: none;
+}
+
+.symbolWrapper {
+	color: #cccdce;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 15px;
+	border-bottom: 2px solid #091017;
+}
+
+.price {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.symbol {
+	font-size: 1.6em;
+	font-weight: bold;
+}
+
+.chart {
+	flex: 2;
+}
