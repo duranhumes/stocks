@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchSymbol } from '../actions';
+import { fetchSymbol, activeSymbol } from '../actions';
 import SymbolListItem from '../components/SymbolListItem';
 import SymbolError from '../components/SymbolError';
 
@@ -11,7 +11,7 @@ class SymbolList extends React.Component {
 
 	_fetchSymbol = e => {
 		e.preventDefault();
-		this.props.onFetchSymbol(this.state.searchTerm);
+		this.props.onFetchSymbol(this.state.searchTerm, '3m', 10);
 		this.setState({ searchTerm: '' });
 	};
 
@@ -36,12 +36,7 @@ class SymbolList extends React.Component {
 				{this.props.symbol && (
 					<ul>
 						{this.props.symbol.map((data, key) => {
-							if (data[0]) {
-								if (data[0].error) {
-									return;
-								}
-							}
-							return <SymbolListItem key={key} data={data} />;
+							return <SymbolListItem key={key} data={data} setActiveSymbol={this.props.onSelectSymbol} />;
 						})}
 					</ul>
 				)}
@@ -54,8 +49,8 @@ SymbolList.propTypes = {
 	symbol: PropTypes.arrayOf(
 		PropTypes.shape({
 			data: PropTypes.array.isRequired,
-			price: PropTypes.array.isRequired,
-			symbol: PropTypes.array.isRequired,
+			price: PropTypes.number.isRequired,
+			symbol: PropTypes.string.isRequired,
 		})
 	).isRequired,
 };
@@ -67,6 +62,7 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = {
 	onFetchSymbol: fetchSymbol,
+	onSelectSymbol: activeSymbol,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(SymbolList);

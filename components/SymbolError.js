@@ -1,4 +1,8 @@
-const SymbolError = ({ data }) => {
+const SymbolError = ({
+	data: {
+		response: { data },
+	},
+}) => {
 	return (
 		<li className="errorWrapper">
 			<h5 style={{ color: '#DA4D2F' }}>{data}</h5>

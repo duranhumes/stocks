@@ -2,26 +2,19 @@ import _ from 'lodash';
 import axios from 'axios';
 
 import { apiKey } from '../config';
-import { FETCH_SYMBOL, FETCH_ERROR } from './types';
+import { FETCH_SYMBOL, FETCH_ERROR, ACTIVE_SYMBOL } from './types';
 
-export const fetchSymbol = input => {
+export const fetchSymbol = (input, range = '1m', news = 10) => {
 	let response;
-	const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${input.toUpperCase()}&outputsize=20&apikey=${apiKey}`;
+	const url = `https://api.iextrading.com/1.0/stock/${input}/batch?types=quote,news,chart&range=${range}&last=${news}`;
 	return dispatch => {
 		return axios
 			.get(url)
-			.then(data => {
-				if (!data.data['Error Message']) {
-					dispatch({
-						type: FETCH_SYMBOL,
-						payload: data,
-					});
-				} else {
-					dispatch({
-						type: FETCH_ERROR,
-						payload: { error: 'There was an error fetching that symbol.' },
-					});
-				}
+			.then(({ data }) => {
+				dispatch({
+					type: FETCH_SYMBOL,
+					payload: data,
+				});
 			})
 			.catch(error => {
 				dispatch({
@@ -29,5 +22,12 @@ export const fetchSymbol = input => {
 					payload: error,
 				});
 			});
+	};
+};
+
+export const activeSymbol = symbol => {
+	return {
+		type: ACTIVE_SYMBOL,
+		payload: symbol,
 	};
 };

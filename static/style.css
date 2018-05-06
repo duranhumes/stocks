@@ -2,14 +2,7 @@ body {
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
-}
-
-svg {
-	height: 80px;
-	width: 65%;
-	display: flex;
-	justify-content: center;
-	margin: 0 auto;
+	color: #f7fbff;
 }
 
 .wrapper {
@@ -17,12 +10,22 @@ svg {
 	height: 100vh;
 }
 
-.currentSymbol {
+.activeSymbol {
 	flex: 3;
+	background: #1d2026;
+}
+
+.active {
+	background: #1d2026;
+	border-bottom: none !important;
+}
+
+.currentPrice {
+	font-size: 4.2em;
 }
 
 .symbolList {
-	flex: 1.5;
+	flex: 1;
 	background: #15181d;
 	overflow-y: scroll;
 }
@@ -47,7 +50,6 @@ svg {
 	font-size: 1.2em;
 	border: none;
 	background: #15181d;
-	color: #f7fbff;
 	outline: none;
 	transition: 100ms all ease;
 }

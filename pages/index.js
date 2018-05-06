@@ -1,6 +1,6 @@
 import Layout from '../containers/Layout';
 import SymbolList from '../containers/SymbolList';
-import CurrentSymbol from '../containers/CurrentSymbol';
+import ActiveSymbol from '../containers/ActiveSymbol';
 
 class Home extends React.Component {
 	render() {
@@ -8,7 +8,7 @@ class Home extends React.Component {
 			<Layout>
 				<div className="wrapper">
 					<SymbolList />
-					<CurrentSymbol />
+					<ActiveSymbol />
 				</div>
 			</Layout>
 		);

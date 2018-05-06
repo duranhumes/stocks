@@ -1,37 +1,52 @@
 import Sparkline from '../components/Sparkline';
 
-const SymbolListItem = ({ data: { data, price, symbol } }) => {
-	let coloredPrice;
-	let chartColor;
-	price = parseFloat(price).toFixed(2);
-	if (data[data.length - 2] > price) {
-		chartColor = '#DA4D2F';
-		coloredPrice = (
-			<span className="price" style={{ color: '#DA4D2F' }}>
-				{price}
-			</span>
-		);
-	} else if (data[data.length - 2] < price) {
-		chartColor = '#20c291';
-		coloredPrice = (
-			<span className="price" style={{ color: '#20c291' }}>
-				{price}
-			</span>
-		);
-	} else {
-		chartColor = 'gray';
-		coloredPrice = <span className="price">{price}</span>;
-	}
+class SymbolListItem extends React.Component {
+	_setActive = payload => {
+		this.props.setActiveSymbol(payload);
+	};
 
-	return (
-		<li className="symbolWrapper">
-			<span className="symbol">{symbol}</span>
-			<span className="chart">
-				<Sparkline data={data} color={chartColor} />
-			</span>
-			{coloredPrice}
-		</li>
-	);
-};
+	render() {
+		let { data, price, symbol, payload } = this.props.data;
+		let priceColor = '';
+		let chartColor = '';
+		let upOrDown = '';
+		price = parseFloat(price).toFixed(2);
+		if (data[data.length - 2] > price) {
+			chartColor = '#DA4D2F';
+			priceColor = '#DA4D2F';
+			upOrDown = 'up';
+		} else if (data[data.length - 2] < price) {
+			chartColor = '#20C291';
+			priceColor = '#20C291';
+			upOrDown = 'down';
+		} else {
+			chartColor = 'grey';
+			priceColor = 'grey';
+		}
+
+		const { chartStyle } = styles;
+		return (
+			<li className="symbolWrapper" onClick={() => this._setActive(payload)}>
+				<span className="symbol">{symbol}</span>
+				<span className="chart">
+					<Sparkline data={data} color={chartColor} style={chartStyle} stroke="2" />
+				</span>
+				<span className="price" style={{ color: priceColor }}>
+					{price}
+				</span>
+			</li>
+		);
+	}
+}
 
 export default SymbolListItem;
+
+const styles = {
+	chartStyle: {
+		height: 80,
+		width: '65%',
+		display: 'flex',
+		justifyContent: 'center',
+		margin: '0 auto',
+	},
+};
