@@ -11,7 +11,7 @@ class SymbolList extends React.Component {
 
 	_fetchSymbol = e => {
 		e.preventDefault();
-		this.props.onFetchSymbol(this.state.searchTerm, '3m', 10);
+		this.props.onFetchSymbol(this.state.searchTerm, '3m', 3);
 		this.setState({ searchTerm: '' });
 	};
 
