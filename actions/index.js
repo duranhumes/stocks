@@ -1,11 +1,10 @@
 import _ from 'lodash';
 import axios from 'axios';
 
-import { apiKey } from '../config';
 import { FETCH_SYMBOL, FETCH_ERROR, ACTIVE_SYMBOL } from './types';
 
 export const fetchSymbol = (input, range = '1m', news = 5) => {
-	let response;
+	input = input.trim();
 	const url = `https://api.iextrading.com/1.0/stock/${input}/batch?types=quote,news,chart&range=${range}&last=${news}`;
 	return dispatch => {
 		return axios

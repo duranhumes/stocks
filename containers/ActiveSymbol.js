@@ -12,7 +12,7 @@ class ActiveSymbol extends React.Component {
 		}
 	};
 
-	_num = value => {
+	_numberFormat = value => {
 		let newValue = value;
 		if (value >= 1000) {
 			let suffixes = ['', 'k', 'm', 'b', 't'];
@@ -30,6 +30,10 @@ class ActiveSymbol extends React.Component {
 			newValue = shortValue + suffixes[suffixNum];
 		}
 		return newValue;
+	};
+
+	_formatDecimal = number => {
+		return parseFloat(number).toFixed(2);
 	};
 
 	render() {
@@ -54,12 +58,7 @@ class ActiveSymbol extends React.Component {
 			}
 		}
 
-		const _formatNumber = number => {
-			return parseFloat(number).toFixed(2);
-		};
-
 		const { headerStyle, leftHeaderStyle, rightHeaderStyle, symbolStyle, iconStyle, companyNameStyle, chartStyle, statStyle, statTitleStyle, statDataStyle, newsLinkStyle } = styles;
-		console.log(this.props);
 		return (
 			<div className="activeSymbol">
 				<div className="container-fluid">
@@ -69,10 +68,10 @@ class ActiveSymbol extends React.Component {
 								<div style={headerStyle}>
 									<div style={leftHeaderStyle}>
 										<div className="currentPrice">${quote.close}</div>
-										<span style={{ color: priceColor }}>
+										<span style={{ color: priceColor, fontSize: '1.2em' }}>
 											{quote.change} ({quote.changePercent})
 										</span>
-										<span style={{ color: '#454c52' }}> {quote.latestTime}</span>
+										<span style={{ color: '#454c52', fontSize: '1.2em' }}> {quote.latestTime}</span>
 									</div>
 									<div style={rightHeaderStyle}>
 										<h1>{this._renderIcon(quote.latestSource)}</h1>
@@ -96,41 +95,41 @@ class ActiveSymbol extends React.Component {
 									<div className="col-lg-6">
 										<div style={statStyle}>
 											<span style={statTitleStyle}>Open</span>
-											<span style={statDataStyle}>{_formatNumber(quote.open)}</span>
+											<span style={statDataStyle}>{this._formatDecimal(quote.open)}</span>
 										</div>
 										<div style={statStyle}>
 											<span style={statTitleStyle}>High</span>
-											<span style={statDataStyle}>{_formatNumber(quote.high)}</span>
+											<span style={statDataStyle}>{this._formatDecimal(quote.high)}</span>
 										</div>
 										<div style={statStyle}>
 											<span style={statTitleStyle}>Low</span>
-											<span style={statDataStyle}>{_formatNumber(quote.low)}</span>
+											<span style={statDataStyle}>{this._formatDecimal(quote.low)}</span>
 										</div>
 										<div style={statStyle}>
 											<span style={statTitleStyle}>52 Wk High</span>
-											<span style={statDataStyle}>{_formatNumber(quote.week52High)}</span>
+											<span style={statDataStyle}>{this._formatDecimal(quote.week52High)}</span>
 										</div>
 										<div style={statStyle}>
 											<span style={statTitleStyle}>52 Wk Low</span>
-											<span style={statDataStyle}>{_formatNumber(quote.week52Low)}</span>
+											<span style={statDataStyle}>{this._formatDecimal(quote.week52Low)}</span>
 										</div>
 									</div>
 									<div className="col-lg-6">
 										<div style={statStyle}>
 											<span style={statTitleStyle}>Vol</span>
-											<span style={statDataStyle}>{this._num(quote.latestVolume)}</span>
+											<span style={statDataStyle}>{this._numberFormat(quote.latestVolume)}</span>
 										</div>
 										<div style={statStyle}>
 											<span style={statTitleStyle}>Avg Vol</span>
-											<span style={statDataStyle}>{this._num(quote.avgTotalVolume)}</span>
+											<span style={statDataStyle}>{this._numberFormat(quote.avgTotalVolume)}</span>
 										</div>
 										<div style={statStyle}>
 											<span style={statTitleStyle}>Mrkt Cap</span>
-											<span style={statDataStyle}>{this._num(quote.marketCap)}</span>
+											<span style={statDataStyle}>{this._numberFormat(quote.marketCap)}</span>
 										</div>
 										<div style={statStyle}>
 											<span style={statTitleStyle}>P/E Ratio</span>
-											<span style={statDataStyle}>{_formatNumber(quote.peRatio)}</span>
+											<span style={statDataStyle}>{this._formatDecimal(quote.peRatio)}</span>
 										</div>
 									</div>
 								</div>

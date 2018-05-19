@@ -1,8 +1,9 @@
 import Sparkline from '../components/Sparkline';
 
 class SymbolListItem extends React.Component {
-	_setActive = payload => {
+	_setActive = (payload, key) => {
 		this.props.setActiveSymbol(payload);
+		this.props.itemActive(this.props.data);
 	};
 
 	render() {
@@ -25,8 +26,10 @@ class SymbolListItem extends React.Component {
 		}
 
 		const { chartStyle } = styles;
+		const { datakey } = this.props;
+
 		return (
-			<li className="symbolWrapper" onClick={() => this._setActive(payload)}>
+			<li className={`symbolWrapper ${this.props.active ? 'active' : ''}`} onClick={() => this._setActive(payload, datakey)}>
 				<span className="symbol">{symbol}</span>
 				<span className="chart">
 					<Sparkline data={data} color={chartColor} style={chartStyle} stroke="2" />

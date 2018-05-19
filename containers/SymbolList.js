@@ -7,7 +7,11 @@ import SymbolListItem from '../components/SymbolListItem';
 import SymbolError from '../components/SymbolError';
 
 class SymbolList extends React.Component {
-	state = { searchTerm: '', placeholder: 'Search for stock by name' };
+	state = { searchTerm: '', placeholder: 'Search for stock by name', activeItem: null };
+
+	_itemActive = item => {
+		this.setState({ activeItem: item });
+	};
 
 	_fetchSymbol = e => {
 		e.preventDefault();
@@ -36,7 +40,9 @@ class SymbolList extends React.Component {
 				{this.props.symbol && (
 					<ul>
 						{this.props.symbol.map((data, key) => {
-							return <SymbolListItem key={key} data={data} setActiveSymbol={this.props.onSelectSymbol} />;
+							return (
+								<SymbolListItem key={key} datakey={key} data={data} setActiveSymbol={this.props.onSelectSymbol} itemActive={this._itemActive} active={data === this.state.activeItem} />
+							);
 						})}
 					</ul>
 				)}
