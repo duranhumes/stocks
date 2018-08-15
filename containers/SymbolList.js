@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -7,7 +6,10 @@ import SymbolListItem from '../components/SymbolListItem';
 import SymbolError from '../components/SymbolError';
 
 class SymbolList extends React.Component {
-	state = { searchTerm: '', placeholder: 'Search for stock by name', activeItem: null };
+	state = {
+		searchTerm: '',
+		activeItem: null,
+	};
 
 	_itemActive = item => {
 		this.setState({ activeItem: item });
@@ -24,9 +26,19 @@ class SymbolList extends React.Component {
 			<div className="symbolList">
 				<form onSubmit={this._fetchSymbol} className="symbolListForm">
 					<div className="input-group symbolListSearch">
-						<input type="text" placeholder={this.state.placeholder} value={this.state.searchTerm} onChange={e => this.setState({ searchTerm: e.target.value })} className="form-control" />
+						<input
+							type="text"
+							placeholder="Search for stock by name"
+							value={this.state.searchTerm}
+							onChange={e =>
+								this.setState({ searchTerm: e.target.value })
+							}
+							className="form-control"
+						/>
 						<div className="input-group-append">
-							<span className="input-group-text" onClick={this._fetchSymbol}>
+							<span
+								className="input-group-text"
+								onClick={this._fetchSymbol}>
 								<i className="fa fa-search fa-fw" />
 							</span>
 						</div>
@@ -41,7 +53,14 @@ class SymbolList extends React.Component {
 					<ul>
 						{this.props.symbol.map((data, key) => {
 							return (
-								<SymbolListItem key={key} datakey={key} data={data} setActiveSymbol={this.props.onSelectSymbol} itemActive={this._itemActive} active={data === this.state.activeItem} />
+								<SymbolListItem
+									key={key}
+									datakey={key}
+									data={data}
+									setActiveSymbol={this.props.onSelectSymbol}
+									itemActive={this._itemActive}
+									active={data === this.state.activeItem}
+								/>
 							);
 						})}
 					</ul>
@@ -71,4 +90,7 @@ const mapActionsToProps = {
 	onSelectSymbol: activeSymbol,
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(SymbolList);
+export default connect(
+	mapStateToProps,
+	mapActionsToProps
+)(SymbolList);

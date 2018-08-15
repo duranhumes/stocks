@@ -2,11 +2,9 @@ import { ACTIVE_SYMBOL } from '../actions/types';
 
 const structureSymbolData = payload => {
 	const { chart, quote, news } = payload;
-	let data = [];
-	const price = quote.close;
-	const symbol = quote.symbol;
+	const data = [];
 	chart.map(price => {
-		data = [price.close, ...data];
+		data.push(price.close, ...data);
 	});
 	return { data, quote, news, payload };
 };
@@ -14,10 +12,8 @@ const structureSymbolData = payload => {
 export default function(state = {}, { type, payload }) {
 	switch (type) {
 		case ACTIVE_SYMBOL:
-			const data = structureSymbolData(payload);
-			return data;
+			return structureSymbolData(payload);
 		default:
 			return state;
 	}
-	return state;
 }

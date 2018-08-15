@@ -6,27 +6,43 @@ import Sparkline from '../components/Sparkline';
 class ActiveSymbol extends React.Component {
 	_renderIcon = status => {
 		if (status === 'Open') {
-			return <i className="fa fa-check-circle" style={{ ...styles.iconStyle, color: '#20C291' }} />;
+			return (
+				<i
+					className="fa fa-check-circle"
+					style={{ ...styles.iconStyle, color: '#20C291' }}
+				/>
+			);
 		} else {
-			return <i className="fa fa-times-circle" style={{ ...styles.iconStyle, color: '#DA4D2F' }} />;
+			return (
+				<i
+					className="fa fa-times-circle"
+					style={{ ...styles.iconStyle, color: '#DA4D2F' }}
+				/>
+			);
 		}
 	};
 
 	_numberFormat = value => {
 		let newValue = value;
 		if (value >= 1000) {
-			let suffixes = ['', 'k', 'm', 'b', 't'];
-			let suffixNum = Math.floor(('' + value).length / 3);
+			const suffixes = ['', 'k', 'm', 'b', 't'];
+			const suffixNum = Math.floor(('' + value).length / 3);
 			let shortValue = '';
-			let shortNum = '';
 			for (let precision = 2; precision >= 1; precision--) {
-				shortValue = parseFloat((suffixNum != 0 ? value / Math.pow(1000, suffixNum) : value).toPrecision(precision));
-				let dotLessShortValue = (shortValue + '').replace(/[^a-zA-Z 0-9]+/g, '');
+				shortValue = parseFloat(
+					(suffixNum != 0
+						? value / Math.pow(1000, suffixNum)
+						: value
+					).toPrecision(precision)
+				);
+				let dotLessShortValue = (shortValue + '').replace(
+					/[^a-zA-Z 0-9]+/g,
+					''
+				);
 				if (dotLessShortValue.length <= 2) {
 					break;
 				}
 			}
-			if (shortValue % 1 != 0) shortNum = shortValue.toFixed(1);
 			newValue = shortValue + suffixes[suffixNum];
 		}
 		return newValue;
@@ -58,7 +74,19 @@ class ActiveSymbol extends React.Component {
 			}
 		}
 
-		const { headerStyle, leftHeaderStyle, rightHeaderStyle, symbolStyle, iconStyle, companyNameStyle, chartStyle, statStyle, statTitleStyle, statDataStyle, newsLinkStyle } = styles;
+		const {
+			headerStyle,
+			leftHeaderStyle,
+			rightHeaderStyle,
+			symbolStyle,
+			iconStyle,
+			companyNameStyle,
+			chartStyle,
+			statStyle,
+			statTitleStyle,
+			statDataStyle,
+			newsLinkStyle,
+		} = styles;
 		return (
 			<div className="activeSymbol">
 				<div className="container-fluid">
@@ -67,17 +95,38 @@ class ActiveSymbol extends React.Component {
 							{quote && (
 								<div style={headerStyle}>
 									<div style={leftHeaderStyle}>
-										<div className="currentPrice">${quote.close}</div>
-										<span style={{ color: priceColor, fontSize: '1.2em' }}>
-											{quote.change} ({quote.changePercent})
+										<div className="currentPrice">
+											${quote.close}
+										</div>
+										<span
+											style={{
+												color: priceColor,
+												fontSize: '1.2em',
+											}}>
+											{quote.change} (
+											{quote.changePercent})
 										</span>
-										<span style={{ color: '#454c52', fontSize: '1.2em' }}> {quote.latestTime}</span>
+										<span
+											style={{
+												color: '#454c52',
+												fontSize: '1.2em',
+											}}>
+											{' '}
+											{quote.latestTime}
+										</span>
 									</div>
 									<div style={rightHeaderStyle}>
-										<h1>{this._renderIcon(quote.latestSource)}</h1>
-										<h2 style={symbolStyle}>{quote.symbol}</h2>
+										<h1>
+											{this._renderIcon(
+												quote.latestSource
+											)}
+										</h1>
+										<h2 style={symbolStyle}>
+											{quote.symbol}
+										</h2>
 										<h5 style={companyNameStyle}>
-											{quote.companyName} | {quote.primaryExchange}
+											{quote.companyName} |{' '}
+											{quote.primaryExchange}
 										</h5>
 									</div>
 								</div>
@@ -85,7 +134,16 @@ class ActiveSymbol extends React.Component {
 						</div>
 					</div>
 					<div className="row">
-						<div className="col-lg-12">{data && <Sparkline data={data} color={chartColor} style={chartStyle} stroke="1" />}</div>
+						<div className="col-lg-12">
+							{data && (
+								<Sparkline
+									data={data}
+									color={chartColor}
+									style={chartStyle}
+									stroke="1"
+								/>
+							)}
+						</div>
 					</div>
 					<div className="row">
 						{quote && (
@@ -94,42 +152,94 @@ class ActiveSymbol extends React.Component {
 								<div className="row">
 									<div className="col-lg-6">
 										<div style={statStyle}>
-											<span style={statTitleStyle}>Open</span>
-											<span style={statDataStyle}>{this._formatDecimal(quote.open)}</span>
+											<span style={statTitleStyle}>
+												Open
+											</span>
+											<span style={statDataStyle}>
+												{this._formatDecimal(
+													quote.open
+												)}
+											</span>
 										</div>
 										<div style={statStyle}>
-											<span style={statTitleStyle}>High</span>
-											<span style={statDataStyle}>{this._formatDecimal(quote.high)}</span>
+											<span style={statTitleStyle}>
+												High
+											</span>
+											<span style={statDataStyle}>
+												{this._formatDecimal(
+													quote.high
+												)}
+											</span>
 										</div>
 										<div style={statStyle}>
-											<span style={statTitleStyle}>Low</span>
-											<span style={statDataStyle}>{this._formatDecimal(quote.low)}</span>
+											<span style={statTitleStyle}>
+												Low
+											</span>
+											<span style={statDataStyle}>
+												{this._formatDecimal(quote.low)}
+											</span>
 										</div>
 										<div style={statStyle}>
-											<span style={statTitleStyle}>52 Wk High</span>
-											<span style={statDataStyle}>{this._formatDecimal(quote.week52High)}</span>
+											<span style={statTitleStyle}>
+												52 Wk High
+											</span>
+											<span style={statDataStyle}>
+												{this._formatDecimal(
+													quote.week52High
+												)}
+											</span>
 										</div>
 										<div style={statStyle}>
-											<span style={statTitleStyle}>52 Wk Low</span>
-											<span style={statDataStyle}>{this._formatDecimal(quote.week52Low)}</span>
+											<span style={statTitleStyle}>
+												52 Wk Low
+											</span>
+											<span style={statDataStyle}>
+												{this._formatDecimal(
+													quote.week52Low
+												)}
+											</span>
 										</div>
 									</div>
 									<div className="col-lg-6">
 										<div style={statStyle}>
-											<span style={statTitleStyle}>Vol</span>
-											<span style={statDataStyle}>{this._numberFormat(quote.latestVolume)}</span>
+											<span style={statTitleStyle}>
+												Vol
+											</span>
+											<span style={statDataStyle}>
+												{this._numberFormat(
+													quote.latestVolume
+												)}
+											</span>
 										</div>
 										<div style={statStyle}>
-											<span style={statTitleStyle}>Avg Vol</span>
-											<span style={statDataStyle}>{this._numberFormat(quote.avgTotalVolume)}</span>
+											<span style={statTitleStyle}>
+												Avg Vol
+											</span>
+											<span style={statDataStyle}>
+												{this._numberFormat(
+													quote.avgTotalVolume
+												)}
+											</span>
 										</div>
 										<div style={statStyle}>
-											<span style={statTitleStyle}>Mrkt Cap</span>
-											<span style={statDataStyle}>{this._numberFormat(quote.marketCap)}</span>
+											<span style={statTitleStyle}>
+												Mrkt Cap
+											</span>
+											<span style={statDataStyle}>
+												{this._numberFormat(
+													quote.marketCap
+												)}
+											</span>
 										</div>
 										<div style={statStyle}>
-											<span style={statTitleStyle}>P/E Ratio</span>
-											<span style={statDataStyle}>{this._formatDecimal(quote.peRatio)}</span>
+											<span style={statTitleStyle}>
+												P/E Ratio
+											</span>
+											<span style={statDataStyle}>
+												{this._formatDecimal(
+													quote.peRatio
+												)}
+											</span>
 										</div>
 									</div>
 								</div>
@@ -140,10 +250,23 @@ class ActiveSymbol extends React.Component {
 								<h2>News</h2>
 								{news.map(news => {
 									return (
-										<div className="row" style={{ marginBottom: 20 }} key={news.headline}>
+										<div
+											className="row"
+											style={{ marginBottom: 20 }}
+											key={news.headline}>
 											<div className="col-lg-12">
-												<p>{news.headline.length >= 55 ? news.headline.substring(0, 55) + '...' : news.headline}</p>
-												<a href={news.url} style={newsLinkStyle} target="_blank">
+												<p>
+													{news.headline.length >= 55
+														? news.headline.substring(
+																0,
+																55
+														  ) + '...'
+														: news.headline}
+												</p>
+												<a
+													href={news.url}
+													style={newsLinkStyle}
+													target="_blank">
 													Read More
 												</a>
 											</div>

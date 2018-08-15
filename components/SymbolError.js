@@ -1,9 +1,7 @@
 const SymbolError = ({ data }) => {
 	let message;
-	if (data) {
-		if (data.response) {
-			message = data.response.data;
-		}
+	if (data && data.response) {
+		message = data.response.data;
 	}
 	return (
 		<li className="errorWrapper">

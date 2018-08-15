@@ -11,5 +11,4 @@ export default function errorReducer(state = [], { type, payload }) {
 		default:
 			return null;
 	}
-	return null;
 }
