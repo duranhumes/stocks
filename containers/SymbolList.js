@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchSymbol, activeSymbol } from '../actions';
+import { fetchSymbol, activeSymbol, livePrice } from '../actions';
 import SymbolListItem from '../components/SymbolListItem';
 import SymbolError from '../components/SymbolError';
 
@@ -17,9 +17,19 @@ class SymbolList extends React.Component {
 
 	_fetchSymbol = e => {
 		e.preventDefault();
-		this.props.onFetchSymbol(this.state.searchTerm, '3m', 3);
+		const { searchTerm } = this.state;
+		this.props.onFetchSymbol(searchTerm, '1d', 3);
+
+		this.symbolInterval = setInterval(() => {
+			this.props.onFetchSymbol(searchTerm, '1d', 3);
+		}, 5000);
+
 		this.setState({ searchTerm: '' });
 	};
+
+	componentWillUnmount() {
+		clearInterval(this.symbolInterval);
+	}
 
 	render() {
 		return (

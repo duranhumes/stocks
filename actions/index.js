@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import { FETCH_SYMBOL, FETCH_ERROR, ACTIVE_SYMBOL } from './types';
 
@@ -16,6 +16,7 @@ export const fetchSymbol = (input, range = '1m', news = 5) => {
 				});
 			})
 			.catch(error => {
+				console.dir('Error: ', error);
 				dispatch({
 					type: FETCH_ERROR,
 					payload: error,

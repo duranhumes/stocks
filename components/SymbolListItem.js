@@ -1,15 +1,15 @@
 import Sparkline from '../components/Sparkline';
 
 class SymbolListItem extends React.Component {
-	_setActive = payload => {
-		this.props.setActiveSymbol(payload);
+	_setActive = () => {
+		this.props.setActiveSymbol(this.props.data.payload);
 		this.props.itemActive(this.props.data);
 	};
 
 	render() {
 		let { data, price, symbol, payload } = this.props.data;
-		let priceColor = '';
-		let chartColor = '';
+		let priceColor = 'grey';
+		let chartColor = 'grey';
 		price = parseFloat(price).toFixed(2);
 		if (data[data.length - 2] > price) {
 			chartColor = '#DA4D2F';
@@ -17,24 +17,18 @@ class SymbolListItem extends React.Component {
 		} else if (data[data.length - 2] < price) {
 			chartColor = '#20C291';
 			priceColor = '#20C291';
-		} else {
-			chartColor = 'grey';
-			priceColor = 'grey';
 		}
-
-		const { chartStyle } = styles;
-		const { datakey } = this.props;
 
 		return (
 			<li
 				className={`symbolWrapper ${this.props.active ? 'active' : ''}`}
-				onClick={() => this._setActive(payload, datakey)}>
+				onClick={this._setActive}>
 				<span className="symbol">{symbol}</span>
 				<span className="chart">
 					<Sparkline
 						data={data}
 						color={chartColor}
-						style={chartStyle}
+						style={styles.chartStyle}
 						stroke="2"
 					/>
 				</span>

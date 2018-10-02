@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { connect } from 'react-redux';
 
 import Sparkline from '../components/Sparkline';
@@ -60,7 +59,7 @@ class ActiveSymbol extends React.Component {
 		let chartColor = '';
 		let upOrDown = '';
 		if (quote) {
-			let price = quote.close;
+			let price = quote.latestPrice;
 			price = parseFloat(price).toFixed(2);
 			if (data[data.length - 2] > price) {
 				chartColor = '#DA4D2F';

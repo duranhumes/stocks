@@ -2,11 +2,12 @@ import Head from 'next/head';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from '../reducers';
 
 const storeEnhancers = compose(applyMiddleware(thunk));
-const store = createStore(rootReducer, storeEnhancers);
+const store = createStore(rootReducer, composeWithDevTools(storeEnhancers));
 
 class Layout extends React.Component {
 	render() {
