@@ -1,0 +1,9 @@
+{
+  "rules": [
+    {
+      "pathname": "/stocks",
+      "method": ["GET", "POST", "OPTIONS"],
+      "dest": "http://localhost:3000"
+    }
+  ]
+}
