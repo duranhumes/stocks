@@ -7,7 +7,7 @@ export default function errorReducer(state = [], { type, payload }) {
 		case FETCH_SYMBOL:
 			return null;
 		case FETCH_ERROR:
-			return null;
+			return state;
 		default:
 			return null;
 	}

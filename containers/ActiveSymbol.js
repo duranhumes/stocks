@@ -95,7 +95,7 @@ class ActiveSymbol extends React.Component {
 								<div style={headerStyle}>
 									<div style={leftHeaderStyle}>
 										<div className="currentPrice">
-											${quote.close}
+											{quote.close}
 										</div>
 										<span
 											style={{

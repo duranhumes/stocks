@@ -9,6 +9,7 @@ const structureSymbolData = payload => {
 };
 
 export default function symbolReducer(state = [], { type, payload }) {
+    console.log('State: ', state);
 	switch (type) {
 		case FETCH_SYMBOL:
 			let data = structureSymbolData(payload);
